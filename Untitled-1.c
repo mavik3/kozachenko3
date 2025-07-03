@@ -21,6 +21,22 @@ CTWL *ctwl_create_empty(void){
     return list;
 }
 
+void ctwl_destroy(CTWL *list){
+    if(!list || !list -> cur){
+        free(list);
+        return;
+    }
+    TWN *start = list -> cur;
+    TWN *tmp = start -> next;
+    while(tmp != start){
+        TWN *next = tmp -> next;
+        free(tmp);
+        tmp = next;
+    }
+    free(start);
+    free(list);
+}
+
 CTWL *ctwl_get_affine_sublist(CTWL *list, unsigned int len, unsigned int step){
     if(!list || !list -> cur || len == 0 || step == 0)
     return NULL;
